@@ -1,3 +1,5 @@
+require('dotenv').config(); // ✅ Load .env variables at the top
+
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -5,11 +7,24 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 
-const otpStore = {}; // In-memory OTP store
+const otpStore = {}; // Temporary in-memory OTP store
+
+
+// ✅ Setup mail transporter ONCE
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
+  }
+});
 
 // ✅ Route: Send OTP
 router.post('/send-otp', async (req, res) => {
   const { email, password, secretKey } = req.body;
+
+  console.log('📤 Attempting to send email to:', email);
+  console.log('📨 Using MAIL_USER:', process.env.MAIL_USER);
 
   if (secretKey !== process.env.ADMIN_SECRET) {
     return res.status(403).json({ message: 'Invalid Admin Secret' });
@@ -28,15 +43,6 @@ router.post('/send-otp', async (req, res) => {
     createdAt: Date.now()
   };
 
-  // Set up mail transporter
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS
-    }
-  });
-
   const mailOptions = {
     from: process.env.MAIL_USER,
     to: email,
@@ -45,7 +51,14 @@ router.post('/send-otp', async (req, res) => {
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-    if (err) return res.status(500).json({ message: 'Failed to send email' });
+    console.log("✅ MAIL_USER:", process.env.MAIL_USER);
+console.log("✅ MAIL_PASS:", process.env.MAIL_PASS);
+
+    if (err) {
+      console.error('❌ Email sending error:', err);
+      return res.status(500).json({ message: 'Failed to send email', error: err.message });
+    }
+    console.log('✅ OTP email sent:', info.response);
     res.status(200).json({ message: 'OTP sent to email' });
   });
 });
