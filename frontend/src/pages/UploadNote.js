@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function UploadNote() {
   const navigate = useNavigate();
+  const email=localStorage.getItem("email")
   const [form, setForm] = useState({ title: '', subject: '' });
   const [file, setFile] = useState(null);
 
@@ -18,6 +19,7 @@ function UploadNote() {
     data.append('title', form.title);
     data.append('subject', form.subject);
     data.append('file', file);
+    data.append('uploadedBy', email);
 
     try {
       await axios.post('http://localhost:5000/api/notes/upload', data);

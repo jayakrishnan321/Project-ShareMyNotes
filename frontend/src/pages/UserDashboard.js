@@ -6,8 +6,7 @@ function UserDashboard() {
   const [form, setForm] = useState({ title: '', subject: '' });
   const [file, setFile] = useState(null);
 
-  const token = localStorage.getItem('token');
-
+  const email = localStorage.getItem('email')
   useEffect(() => {
     axios.get('http://localhost:5000/api/notes/public')
       .then(res => setNotes(res.data))
@@ -18,12 +17,12 @@ function UserDashboard() {
     e.preventDefault();
     if (!file || !form.title || !form.subject) return alert('Fill all fields');
 
-    const decoded = JSON.parse(atob(token.split('.')[1])); // Decode token payload
     const data = new FormData();
     data.append('title', form.title);
     data.append('subject', form.subject);
     data.append('file', file);
-    data.append('uploadedBy', decoded.email);
+    data.append('uploadedBy', email); // ✅ use username from token
+
 
     try {
       await axios.post('http://localhost:5000/api/notes/upload-by-user', data);

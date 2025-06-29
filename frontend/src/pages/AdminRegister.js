@@ -49,7 +49,6 @@ function AdminRegister() {
         email: form.email,
         otp
       });
-
       alert(res.data.message);
       navigate('/admin/login');
     } catch (err) {

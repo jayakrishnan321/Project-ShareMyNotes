@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const Note = require('../models/Note');
 const nodemailer = require('nodemailer');
+
+const Note = require('../models/Note');
 const User = require('../models/User');
+
+
 
 // 📁 Multer setup to store files in "uploads/"
 const storage = multer.diskStorage({
@@ -15,23 +18,33 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 router.post('/upload', upload.single('file'), async (req, res) => {
-  const { title, subject } = req.body;
+  const { title, subject,uploadedBy } = req.body;
   const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
-  const note = new Note({ title, subject, fileUrl, status: 'approved' });
+  const note = new Note({ title, subject, fileUrl,uploadedBy, status: 'approved' });
   await note.save();
 
   res.status(201).json({ message: 'Note uploaded successfully' });
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const note = await Note.findByIdAndDelete(req.params.id);
+    if (!note) return res.status(404).json({ message: 'Note not found' });
+
+    res.status(200).json({ message: 'Note deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Delete failed', error: err.message });
+  }
+});
+
+//user case
 
 router.post('/upload-by-user', upload.single('file'), async (req, res) => {
-  const { title, subject, uploadedBy } = req.body;
+ const { title, subject,uploadedBy } = req.body;
 
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
-
   const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
   const note = new Note({ title, subject, fileUrl, uploadedBy, status: 'pending' });
   await note.save();
@@ -89,6 +102,11 @@ router.get('/', async (req, res) => {
   res.json(notes);
 });
 
+router.get('/rejected',async(req,res)=>{
+   const rejectedNotes = await Note.find({ status: 'rejected' }).sort({ uploadedAt: -1 });
+  res.json(rejectedNotes)
+})
+
 
 router.get('/public', async (req, res) => {
   const approvedNotes = await Note.find({ status: 'approved' }).sort({ uploadedAt: -1 });
@@ -102,15 +120,6 @@ router.get('/pending', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
-  try {
-    const note = await Note.findByIdAndDelete(req.params.id);
-    if (!note) return res.status(404).json({ message: 'Note not found' });
 
-    res.status(200).json({ message: 'Note deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Delete failed', error: err.message });
-  }
-});
 
 module.exports = router;

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function UserLogin() {
+
   const [form, setForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
@@ -11,6 +12,7 @@ function UserLogin() {
     try {
       const res = await axios.post('http://localhost:5000/api/user/login', form);
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('email',form.email);
       navigate('/user/dashboard');
     } catch {
       alert('Login failed');

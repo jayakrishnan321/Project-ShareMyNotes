@@ -6,8 +6,8 @@ function AdminReview() {
 
   const fetchPending = () => {
     axios.get('http://localhost:5000/api/notes/pending')
-      .then(res => setPendingNotes(res.data))
-      .catch(() => alert('Error loading pending notes'));
+      .then((res) =>{ setPendingNotes(res.data)})
+        .catch(() => alert('Error loading pending notes'));
   };
 
   useEffect(() => {

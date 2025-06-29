@@ -3,13 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function AdminLogin() {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: '',
     password: ''
   });
-
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -19,15 +18,13 @@ function AdminLogin() {
       alert('Please fill all fields');
       return;
     }
-
     try {
       const res = await axios.post('http://localhost:5000/api/admin/login', form);
-
       alert(res.data.message);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.role);
-
-      // ✅ Navigate to admin dashboard (you can update this route)
+      localStorage.setItem('email', res.data.email)
+     
       navigate('/admin/home');
     } catch (err) {
       alert(err.response?.data?.message || 'Login failed');
