@@ -7,8 +7,11 @@ function ViewNotes() {
     title: 'all',
     search: '',
   });
-  const role = localStorage.getItem('role')
-  console.log(role)
+
+  
+ 
+  
+ 
   const fetchnotes = () => {
     axios.get('http://localhost:5000/api/notes/public')
       .then((res) => setNotes(res.data))
@@ -62,9 +65,8 @@ function ViewNotes() {
             <th className="p-2 border">Semester</th>
             <th className="p-2 border">Subject</th>
             <th className="p-2 border">Download</th>
-             {role === 'admin' && (
-                <th className="p-2 border">Delete</th>
-              )}
+           <th className="p-2 border">Delete</th>
+              
            
             
           </tr>
@@ -84,7 +86,7 @@ function ViewNotes() {
                   Download
                 </a>
               </td>
-              {role === 'admin' && (
+             
                 <td className="p-2 border">
                   <button
                     className="bg-red-600 text-white px-3 py-1 rounded ml-10"
@@ -93,7 +95,7 @@ function ViewNotes() {
                     Delete
                   </button>
                 </td>
-              )}
+             
 
 
             </tr>

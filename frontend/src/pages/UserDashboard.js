@@ -10,13 +10,16 @@ function UserDashboard() {
     localStorage.removeItem('email');
     navigate('/user/login'); // or your login route
   };
-
+const token=localStorage.getItem('token')
+const decoded = JSON.parse(atob(token.split('.')[1]));
+console.log(decoded.email); // should show the email
   
 
   
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
+      <h3>{decoded.email}</h3>
   <h1 className="text-3xl font-bold mb-6 text-center text-blue-800">📚 User Dashboard</h1>
 
   <div className="flex justify-center gap-4 mb-6">
@@ -27,7 +30,7 @@ function UserDashboard() {
       ➕ Upload Note
     </button>
     <button
-      onClick={() => navigate('/admin/view')}
+      onClick={() => navigate('/user/view')}
       className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
     >
       📄 View Notes

@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 function AdminDashboard() {
-  const email = localStorage.getItem('email');
+  
+  const token = localStorage.getItem('token')
+ const decoded = JSON.parse(atob(token.split('.')[1]));
+const email=decoded.email
   const navigate = useNavigate();
   const [pendingNotes, setPendingNotes] = useState([]);
   const fetchNotes = async () => {
     try {
-   
+
       const pending = await axios.get('http://localhost:5000/api/notes/pending');
-   
+
       setPendingNotes(pending.data);
     } catch {
       alert('Failed to load notes');
@@ -30,13 +33,13 @@ function AdminDashboard() {
   useEffect(() => {
     fetchNotes();
   }, []);
-   const handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('email');
     navigate('/admin/login'); // or your login route
   };
-  
+
 
   return (
     <div className="p-8 text-center">
@@ -95,12 +98,12 @@ function AdminDashboard() {
           </div>
         ))
       )}
-       <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
+      <button
+        onClick={handleLogout}
+        className="bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Logout
+      </button>
     </div>
   );
 }

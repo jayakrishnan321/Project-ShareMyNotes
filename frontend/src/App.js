@@ -3,13 +3,14 @@ import AdminRegister from './pages/AdminRegister';
 import AdminLogin from './pages/AdminLogin';
 import Home from './pages/AdminDashboard';
 import UploadNote from './pages/UploadNote';
-import ViewNotes from './pages/ViewNotes';
+import ViewNotes from './pages/AdminViewNote';
 import UserRegister from './pages/UserRegister';
 import UserLogin from './pages/UserLogin';
 import UserDashboard from './pages/UserDashboard';
 import AdminReview from './pages/AdminReview';
 import AdminRejected from './pages/AdminRejected';
 import UserUpload from './pages/UserUpload';
+import UserViewNote from './pages/UserViewNote';
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/user/dashboard" element={<UserDashboard />} />
         <Route path="/admin/review" element={<AdminReview />} />
         <Route path='/user/upload' element={<UserUpload/>}/>
+        <Route path='/user/view' element={<UserViewNote/>}/>
       </Routes>
     </Router>
   );
