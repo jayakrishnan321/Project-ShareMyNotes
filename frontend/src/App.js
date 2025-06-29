@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminRegister from './pages/AdminRegister';
 import AdminLogin from './pages/AdminLogin';
-import Home from './pages/Home';
+import Home from './pages/AdminDashboard';
 
 function App() {
   return (
