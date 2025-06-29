@@ -29,5 +29,15 @@ router.get('/', async (req, res) => {
   const notes = await Note.find().sort({ uploadedAt: -1 });
   res.json(notes);
 });
+router.delete('/:id', async (req, res) => {
+  try {
+    const note = await Note.findByIdAndDelete(req.params.id);
+    if (!note) return res.status(404).json({ message: 'Note not found' });
+
+    res.status(200).json({ message: 'Note deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Delete failed', error: err.message });
+  }
+});
 
 module.exports = router;
