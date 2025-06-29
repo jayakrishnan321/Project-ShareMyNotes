@@ -9,6 +9,7 @@ import UserLogin from './pages/UserLogin';
 import UserDashboard from './pages/UserDashboard';
 import AdminReview from './pages/AdminReview';
 import AdminRejected from './pages/AdminRejected';
+import UserUpload from './pages/UserUpload';
 function App() {
   return (
     <Router>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
         <Route path="/admin/review" element={<AdminReview />} />
+        <Route path='/user/upload' element={<UserUpload/>}/>
       </Routes>
     </Router>
   );

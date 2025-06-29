@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-function UploadNote() {
-  const navigate = useNavigate();
-  const email = localStorage.getItem("email")
-  const [form, setForm] = useState({ title: '', subject: '' });
-  const [file, setFile] = useState(null);
-
-  const handleSubmit = async (e) => {
+import { useState } from 'react';
+function UserUpload() {
+    const navigate = useNavigate();
+      const email = localStorage.getItem("email")
+      const [form, setForm] = useState({ title: '', subject: '' });
+      const [file, setFile] = useState(null);
+    
+     const handleUpload = async (e) => {
     e.preventDefault();
-    if (!file || !form.title || !form.subject) {
-      alert('All fields are required!');
-      return;
-    }
+    if (!file || !form.title || !form.subject) return alert('Fill all fields');
 
     const data = new FormData();
     data.append('title', form.title);
     data.append('subject', form.subject);
     data.append('file', file);
-    data.append('uploadedBy', email);
+    data.append('uploadedBy', email); // ✅ use username from token
+
 
     try {
-      await axios.post('http://localhost:5000/api/notes/upload', data);
-      alert('Note uploaded');
-      navigate('/admin/home');
-    } catch (err) {
+      await axios.post('http://localhost:5000/api/notes/upload-by-user', data);
+      alert('Note uploaded and sent to admin');
+      navigate('/user/dashboard')
+    } catch {
       alert('Upload failed');
     }
   };
-
   return (
     <div className="max-w-md mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Upload Note</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUpload}>
         <select
           className="w-full p-2 border rounded mb-3"
           value={form.title}
@@ -71,7 +68,7 @@ function UploadNote() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default UploadNote;
+export default UserUpload
