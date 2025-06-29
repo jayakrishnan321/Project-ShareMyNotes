@@ -18,6 +18,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/api/notes', noteRoutes);
 // Connect MongoDB
+const userAuth = require('./Routes/userAuth');
+
+
+app.use('/api/user', userAuth);
+app.use('/api/notes', noteRoutes);
+
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
