@@ -11,6 +11,7 @@ import AdminReview from './pages/AdminReview';
 import AdminRejected from './pages/AdminRejected';
 import UserUpload from './pages/UserUpload';
 import UserViewNote from './pages/UserViewNote';
+import AdminChangepassword from './pages/AdminChangepassword';
 function App() {
   return (
     <Router>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admin/upload" element={<UploadNote />} />
         <Route path="/admin/view" element={<ViewNotes />} />
         <Route path='/admin/rejected' element={<AdminRejected/>}/>
+        <Route path='/admin/change-password/:id' element={<AdminChangepassword/>}/>
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />

@@ -8,6 +8,8 @@ function AdminDashboard() {
   const token = sessionStorage.getItem('token')
  const decoded = JSON.parse(atob(token.split('.')[1]));
 const email=decoded.email
+const id=decoded.id
+
   const navigate = useNavigate();
   const [pendingNotes, setPendingNotes] = useState([]);
   const fetchNotes = async () => {
@@ -63,6 +65,12 @@ const email=decoded.email
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           View Notes
+        </button>
+         <button
+          onClick={() =>navigate(`/admin/change-password/${id}`)}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Change Password
         </button>
       </div>
       <div className="flex flex-wrap justify-end gap-3 mb-4"></div>
