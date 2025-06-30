@@ -19,36 +19,41 @@ const handleupload=()=>{
   
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      
-  <h1 className="text-3xl font-bold mb-6 text-center text-blue-800">📚 Hello {email}</h1>
+ <div className="p-6 max-w-3xl mx-auto">
+  <h1 className="text-3xl font-bold mb-10 text-center text-blue-800">
+    📚 Hello {email}
+  </h1>
 
-  <div className="flex justify-center gap-4 mb-6">
-    <button
+  {/* Row 1: Upload & View */}
+  <div className="flex justify-center gap-10 mb-10">
+    {/* Upload */}
+    <div
       onClick={handleupload}
-      className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow"
+      className="w-48 h-32 cursor-pointer border border-green-600 text-green-700 hover:bg-green-100 transition rounded-lg shadow flex items-center justify-center text-xl font-semibold"
     >
       ➕ Upload Note
-    </button>
-    <button
+    </div>
+
+    {/* View Notes */}
+    <div
       onClick={() => navigate('/user/view')}
-      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+      className="w-48 h-32 cursor-pointer border border-blue-600 text-blue-700 hover:bg-blue-100 transition rounded-lg shadow flex items-center justify-center text-xl font-semibold"
     >
       📄 View Notes
-    </button>
-     <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
+    </div>
   </div>
 
-  
-  <ul className="space-y-4">
-    
-  </ul>
+  {/* Row 2: Logout centered below */}
+  <div className="flex justify-center">
+    <div
+      onClick={handleLogout}
+      className="w-48 h-32 cursor-pointer border border-red-600 text-red-700 hover:bg-red-100 transition rounded-lg shadow flex items-center justify-center text-xl font-semibold"
+    >
+      Logout
+    </div>
+  </div>
 </div>
+
 
   );
 }
