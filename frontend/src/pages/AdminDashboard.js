@@ -25,6 +25,7 @@ const id=decoded.id
 
   const handleDecision = async (id, action) => {
     try {
+      
       await axios.patch(`http://localhost:5000/api/notes/${action}/${id}`);
       fetchNotes(); // refresh after approve/reject
     } catch {
@@ -49,7 +50,9 @@ const id=decoded.id
 
       <div className="mb-8 space-x-4">
         <button
-          onClick={() => navigate('/admin/upload')}
+          onClick={() =>{
+               navigate('/admin/upload')
+          } }
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           Upload Notes
@@ -95,8 +98,13 @@ const id=decoded.id
               >
                 ✅ Approve
               </button>
-              <button
-                onClick={() => handleDecision(note._id, 'reject')}
+              <button 
+                onClick={() =>{
+                  if(window.confirm('do you want to reject this file')){
+                           handleDecision(note._id, 'reject')
+                  }
+                       
+                } }
                 className="bg-red-600 text-white px-3 py-1 rounded"
               >
                 ❌ Reject
