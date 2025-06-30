@@ -11,9 +11,9 @@ function UserLogin() {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/user/login', form);
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('email',form.email);
-      localStorage.setItem('role',res.data.role)
+       sessionStorage.setItem('token', res.data.token);
+      sessionStorage.setItem('email', res.data.email);
+       sessionStorage.setItem('role', res.data.role);
       navigate('/user/dashboard');
     } catch {
       alert('Login failed');

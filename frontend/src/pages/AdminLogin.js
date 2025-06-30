@@ -21,7 +21,9 @@ function AdminLogin() {
     try {
       const res = await axios.post('http://localhost:5000/api/admin/login', form);
       alert(res.data.message);
-      localStorage.setItem('token', res.data.token);
+       sessionStorage.setItem('token', res.data.token);
+      sessionStorage.setItem('email', res.data.email);
+       sessionStorage.setItem('role', res.data.role);
       
      
       navigate('/admin/home');

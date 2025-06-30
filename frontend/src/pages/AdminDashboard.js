@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AdminDashboard() {
   
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('token')
  const decoded = JSON.parse(atob(token.split('.')[1]));
 const email=decoded.email
   const navigate = useNavigate();
@@ -33,12 +33,11 @@ const email=decoded.email
   useEffect(() => {
     fetchNotes();
   }, []);
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('email');
-    navigate('/admin/login'); // or your login route
-  };
+ const handleLogout = () => {
+  sessionStorage.clear(); // or sessionStorage.removeItem('token') etc.
+  navigate('/admin/login'); // or user login
+};
+
 
 
   return (

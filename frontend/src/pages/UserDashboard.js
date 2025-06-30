@@ -5,12 +5,10 @@ function UserDashboard() {
   const navigate=useNavigate()
  
     const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('email');
+    sessionStorage.clear()
     navigate('/user/login'); // or your login route
   };
-const token=localStorage.getItem('token')
+const token=sessionStorage.getItem('token')
 const decoded = JSON.parse(atob(token.split('.')[1]));
 console.log(decoded.email); // should show the email
   
