@@ -12,7 +12,7 @@ function UserRegister() {
     try {
       await axios.post('http://localhost:5000/api/user/register', form);
       alert('Registered successfully!');
-      navigate('/login')
+      navigate('/user/login')
     } catch {
       alert('Registration failed');
     }

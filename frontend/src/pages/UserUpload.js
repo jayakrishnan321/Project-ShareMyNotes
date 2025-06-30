@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 function UserUpload() {
     const navigate = useNavigate();
-      const email = localStorage.getItem("email")
+      const email = sessionStorage.getItem("email")
       const [form, setForm] = useState({ title: '', subject: '' });
       const [file, setFile] = useState(null);
     
