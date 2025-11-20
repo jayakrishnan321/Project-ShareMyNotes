@@ -36,49 +36,68 @@ function AdminChangepassword() {
 };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
             <form
                 onSubmit={(e) => {
                     e.preventDefault(); // prevent page reload
                     handleSubmit(id);
                 }}
-                className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+                className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md transform hover:scale-105 transition-transform duration-200"
             >
-                <h2 className="text-xl font-bold mb-4 text-center">Change Password</h2>
+                <div className="text-center mb-8">
+                    <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-full mb-4">
+                        <span className="text-3xl">🔑</span>
+                    </div>
+                    <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        Change Password
+                    </h2>
+                    <p className="text-gray-500 mt-2">Update your account password</p>
+                </div>
 
-                <input
-                    type="password"
-                    placeholder="Old Password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    className="w-full p-2 mb-4 border rounded"
-                    required
-                />
+                <div className="space-y-5">
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">Old Password</label>
+                        <input
+                            type="password"
+                            placeholder="Enter current password"
+                            value={oldPassword}
+                            onChange={(e) => setOldPassword(e.target.value)}
+                            className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+                            required
+                        />
+                    </div>
 
-                <input
-                    type="password"
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full p-2 mb-4 border rounded"
-                    required
-                />
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">New Password</label>
+                        <input
+                            type="password"
+                            placeholder="Enter new password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+                            required
+                        />
+                    </div>
 
-                <input
-                    type="password"
-                    placeholder="Confirm New Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full p-2 mb-4 border rounded"
-                    required
-                />
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">Confirm New Password</label>
+                        <input
+                            type="password"
+                            placeholder="Confirm new password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+                            required
+                        />
+                    </div>
 
-                <button
-                    type="submit"
-                    className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-                >
-                    Update Password
-                </button>
+                    <button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 font-semibold text-lg"
+                    >
+                        Update Password
+                    </button>
+                </div>
             </form>
         </div>
     )

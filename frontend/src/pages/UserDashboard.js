@@ -19,42 +19,48 @@ const handleupload=()=>{
   
 
   return (
- <div className="p-6 max-w-3xl mx-auto">
-  <h1 className="text-3xl font-bold mb-10 text-center text-blue-800">
-    📚 Hello {email}
-  </h1>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent mb-2">
+            📚 Hello, {email}!
+          </h1>
+          <p className="text-gray-600 text-lg">Welcome to your dashboard</p>
+        </div>
 
-  {/* Row 1: Upload & View */}
-  <div className="flex justify-center gap-10 mb-10">
-    {/* Upload */}
-    <div
-      onClick={handleupload}
-      className="w-48 h-32 cursor-pointer border border-green-600 text-green-700 hover:bg-green-100 transition rounded-lg shadow flex items-center justify-center text-xl font-semibold"
-    >
-      ➕ Upload Note
+        {/* Row 1: Upload & View */}
+        <div className="flex flex-wrap justify-center gap-8 mb-8">
+          {/* Upload */}
+          <div
+            onClick={handleupload}
+            className="w-64 h-48 cursor-pointer bg-gradient-to-br from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col items-center justify-center text-2xl font-bold"
+          >
+            <span className="text-5xl mb-3">➕</span>
+            <span>Upload Note</span>
+          </div>
+
+          {/* View Notes */}
+          <div
+            onClick={() => navigate('/user/view')}
+            className="w-64 h-48 cursor-pointer bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col items-center justify-center text-2xl font-bold"
+          >
+            <span className="text-5xl mb-3">📄</span>
+            <span>View Notes</span>
+          </div>
+        </div>
+
+        {/* Row 2: Logout centered below */}
+        <div className="flex justify-center">
+          <div
+            onClick={handleLogout}
+            className="w-64 h-48 cursor-pointer bg-gradient-to-br from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col items-center justify-center text-2xl font-bold"
+          >
+            <span className="text-5xl mb-3">🚪</span>
+            <span>Logout</span>
+          </div>
+        </div>
+      </div>
     </div>
-
-    {/* View Notes */}
-    <div
-      onClick={() => navigate('/user/view')}
-      className="w-48 h-32 cursor-pointer border border-blue-600 text-blue-700 hover:bg-blue-100 transition rounded-lg shadow flex items-center justify-center text-xl font-semibold"
-    >
-      📄 View Notes
-    </div>
-  </div>
-
-  {/* Row 2: Logout centered below */}
-  <div className="flex justify-center">
-    <div
-      onClick={handleLogout}
-      className="w-48 h-32 cursor-pointer border border-red-600 text-red-700 hover:bg-red-100 transition rounded-lg shadow flex items-center justify-center text-xl font-semibold"
-    >
-      Logout
-    </div>
-  </div>
-</div>
-
-
   );
 }
 
