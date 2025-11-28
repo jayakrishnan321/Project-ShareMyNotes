@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function UserRegister() {
@@ -10,7 +10,7 @@ function UserRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/user/register', form);
+      await api.post('/user/register', form);
       alert('Registered successfully!');
       navigate('/user/login')
     } catch {

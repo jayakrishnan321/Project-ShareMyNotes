@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import axios from 'axios'
+import api from '../api'
 import {  useNavigate } from 'react-router-dom'
 
 
@@ -7,13 +7,13 @@ function AdminRejected() {
     const navigate=useNavigate()
      const [rejectedNotes, setrejecteddNotes] = useState([]);
     const fetchrejected=async ()=>{
-        await axios.get("http://localhost:5000/api/notes/rejected").then((response)=>{
+        await api.get("/notes/rejected").then((response)=>{
             console.log(response.data)
             setrejecteddNotes(response.data)
         })
     }
      const handledelete = (id) => {
-    axios.delete(`http://localhost:5000/api/notes/${id}`)
+    api.delete(`/notes/${id}`)
     alert("this note deleted")
     fetchrejected()
   }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function AdminRegister() {
@@ -30,7 +30,7 @@ function AdminRegister() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/send-otp', form);
+      const res = await api.post('/admin/send-otp', form);
       alert(res.data.message);
       setOtpSent(true);
     } catch (err) {
@@ -45,7 +45,7 @@ function AdminRegister() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/verify-otp', {
+      const res = await api.post('/admin/verify-otp', {
         email: form.email,
         otp
       });

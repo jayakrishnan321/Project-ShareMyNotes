@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 function UserUpload() {
@@ -20,7 +20,7 @@ function UserUpload() {
 
 
     try {
-      await axios.post('http://localhost:5000/api/notes/upload-by-user', data);
+      await api.post('/notes/upload-by-user', data);
       alert('Note uploaded and sent to admin');
       navigate('/user/dashboard')
     } catch {
