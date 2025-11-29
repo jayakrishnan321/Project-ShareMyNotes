@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,7 +15,7 @@ const id=decoded.id
   const fetchNotes = async () => {
     try {
 
-      const pending = await axios.get('http://localhost:5000/api/notes/pending');
+      const pending = await api.get('/api/notes/pending');
 
       setPendingNotes(pending.data);
     } catch {
@@ -26,7 +26,7 @@ const id=decoded.id
   const handleDecision = async (id, action) => {
     try {
       
-      await axios.patch(`http://localhost:5000/api/notes/${action}/${id}`);
+      await api.patch(`/api/notes/${action}/${id}`);
       fetchNotes(); // refresh after approve/reject
     } catch {
       alert(`Failed to ${action}`);

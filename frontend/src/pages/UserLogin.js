@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function UserLogin() {
@@ -10,7 +10,7 @@ function UserLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/user/login', form);
+      const res = await api.post('/user/login', form);
        sessionStorage.setItem('token', res.data.token);
       sessionStorage.setItem('email', res.data.email);
        sessionStorage.setItem('role', res.data.role);
@@ -21,48 +21,26 @@ function UserLogin() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
-      <form onSubmit={handleLogin} className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md transform hover:scale-105 transition-transform duration-200">
-        <div className="text-center mb-8">
-          <div className="inline-block bg-gradient-to-r from-green-600 to-teal-600 p-3 rounded-full mb-4">
-            <span className="text-3xl">👤</span>
-          </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-            User Login
-          </h2>
-          <p className="text-gray-500 mt-2">Welcome back! Please login to continue</p>
-        </div>
-
-        <div className="space-y-5">
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Email</label>
-            <input
-              type="email"
-              placeholder="user@example.com"
-              className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200"
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200"
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              required
-            />
-          </div>
-          <button 
-            type="submit" 
-            className="w-full bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 font-semibold text-lg"
-          >
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleLogin} className="max-w-md mx-auto p-4">
+      <h2 className="text-xl font-bold mb-4">User Login</h2>
+      <input
+        type="email"
+        placeholder="Email"
+        className="w-full p-2 border rounded mb-3"
+        onChange={(e) => setForm({ ...form, email: e.target.value })}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        className="w-full p-2 border rounded mb-3"
+        onChange={(e) => setForm({ ...form, password: e.target.value })}
+        required
+      />
+      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
+        Login
+      </button>
+    </form>
   );
 }
 

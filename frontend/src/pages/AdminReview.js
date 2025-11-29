@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 function AdminReview() {
   const [pendingNotes, setPendingNotes] = useState([]);
 
   const fetchPending = () => {
-    axios.get('http://localhost:5000/api/notes/pending')
+    api.get('/api/notes/pending')
       .then((res) =>{ setPendingNotes(res.data)})
         .catch(() => alert('Error loading pending notes'));
   };
@@ -16,7 +16,7 @@ function AdminReview() {
 
   const handleDecision = async (id, action) => {
     try {
-      await axios.patch(`http://localhost:5000/api/notes/${action}/${id}`);
+      await api.patch(`/api/notes/${action}/${id}`);
       fetchPending();
     } catch {
       alert('Action failed');
