@@ -17,17 +17,29 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+const BASE_URL = process.env.BASE_URL;
 
 router.post('/upload', upload.single('file'), async (req, res) => {
-  const { title, subject,uploadedBy } = req.body;
-  const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  const { title, subject, uploadedBy } = req.body;
 
-  const note = new Note({ title, subject, fileUrl,uploadedBy, status: 'approved' });
+  // Use BASE_URL if present, else fallback to host from request
+  const fileUrl = `${BASE_URL || req.protocol + '://' + req.get('host')}/uploads/${req.file.filename}`;
+  console.log(fileUrl);
+
+  const note = new Note({
+    title,
+    subject,
+    fileUrl,
+    uploadedBy,
+    status: 'approved'
+  });
+
   await note.save();
-
   res.status(201).json({ message: 'Note uploaded successfully' });
 });
 
+
+// DELETE NOTE
 router.delete('/:id', async (req, res) => {
   try {
     const note = await Note.findByIdAndDelete(req.params.id);
@@ -39,17 +51,27 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-//user case
 
+// USER UPLOAD
 router.post('/upload-by-user', upload.single('file'), async (req, res) => {
- const { title, subject,uploadedBy } = req.body;
+  const { title, subject, uploadedBy } = req.body;
 
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
-  const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-  const note = new Note({ title, subject, fileUrl, uploadedBy, status: 'pending' });
+
+  const fileUrl = `${BASE_URL || req.protocol + '://' + req.get('host')}/uploads/${req.file.filename}`;
+  console.log(fileUrl);
+
+  const note = new Note({
+    title,
+    subject,
+    fileUrl,
+    uploadedBy,
+    status: 'pending'
+  });
+
   await note.save();
 
-  // ✅ Get all admin emails from DB
+  // Get all admin emails
   const admins = await User.find({ role: 'admin' });
   const adminEmails = admins.map(admin => admin.username);
 
@@ -57,7 +79,7 @@ router.post('/upload-by-user', upload.single('file'), async (req, res) => {
     return res.status(200).json({ message: 'Note uploaded, but no admin emails found.' });
   }
 
-  // ✅ Send email to all admins
+  // SEND EMAIL TO ADMINS
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -68,17 +90,18 @@ router.post('/upload-by-user', upload.single('file'), async (req, res) => {
 
   const mailOptions = {
     from: process.env.MAIL_USER,
-    to: adminEmails, // ✅ All admins
+    to: adminEmails,
     subject: '📥 New Note Uploaded by Student',
-    text: `Title: ${title}\nSubject: ${subject}\nUploaded by: ${uploadedBy}\n\nLogin to admin panel to approve or reject.`
+    text: `Title: ${title}
+Subject: ${subject}
+Uploaded by: ${uploadedBy}
+
+Login to admin panel to approve or reject.`
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.error('Email Error:', err.message);
-    } else {
-      console.log('Email sent to admins:', info.response);
-    }
+    if (err) console.error('Email Error:', err.message);
+    else console.log('Email sent to admins:', info.response);
   });
 
   res.status(201).json({ message: 'Note uploaded and sent for approval' });
