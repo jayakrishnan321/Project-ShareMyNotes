@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import api from '../api';
+import API from '../api';
 import {  useNavigate } from 'react-router-dom'
 
 
@@ -7,13 +7,13 @@ function AdminRejected() {
     const navigate=useNavigate()
      const [rejectedNotes, setrejecteddNotes] = useState([]);
     const fetchrejected=async ()=>{
-        await api.get("/api/notes/rejected").then((response)=>{
+        await API.get("/api/notes/rejected").then((response)=>{
             console.log(response.data)
             setrejecteddNotes(response.data)
         })
     }
      const handledelete = (id) => {
-    api.delete(`/api/notes/${id}`)
+    API.delete(`/api/notes/${id}`)
     alert("this note deleted")
     fetchrejected()
   }

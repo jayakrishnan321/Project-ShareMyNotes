@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api';
+import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function UserRegister() {
@@ -10,7 +10,7 @@ function UserRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/user/register', form);
+      await API.post('/user/register', form);
       alert('Registered successfully!');
       navigate('/user/login')
     } catch {

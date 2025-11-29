@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api';
+import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function UserLogin() {
@@ -10,7 +10,7 @@ function UserLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/user/login', form);
+      const res = await API.post('/api/user/login', form);
        sessionStorage.setItem('token', res.data.token);
       sessionStorage.setItem('email', res.data.email);
        sessionStorage.setItem('role', res.data.role);

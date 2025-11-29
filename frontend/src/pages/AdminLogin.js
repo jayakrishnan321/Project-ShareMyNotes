@@ -1,5 +1,5 @@
  import React, { useState } from 'react';
-import api from '../api';
+import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function AdminLogin() {
@@ -19,7 +19,8 @@ function AdminLogin() {
       return;
     }
     try {
-      const res = await api.post('/admin/login', form);
+      console.log('hi')
+      const res = await API.post('/api/admin/login', form);
       alert(res.data.message);
        sessionStorage.setItem('token', res.data.token);
       sessionStorage.setItem('email', res.data.email);
@@ -28,6 +29,7 @@ function AdminLogin() {
      
       navigate('/admin/home');
     } catch (err) {
+      console.log('error')
       alert(err.response?.data?.message || 'Login failed');
     }
   };

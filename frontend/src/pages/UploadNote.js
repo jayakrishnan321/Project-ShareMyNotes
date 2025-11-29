@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api';
+import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function UploadNote() {
@@ -22,7 +22,7 @@ function UploadNote() {
     data.append('uploadedBy', email);
 
     try {
-      await api.post('/notes/upload', data);
+      await API.post('/notes/upload', data);
       alert('Note uploaded');
       navigate('/admin/home');
     } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,7 +15,7 @@ const id=decoded.id
   const fetchNotes = async () => {
     try {
 
-      const pending = await api.get('/api/notes/pending');
+      const pending = await API.get('/api/notes/pending');
 
       setPendingNotes(pending.data);
     } catch {
@@ -26,7 +26,7 @@ const id=decoded.id
   const handleDecision = async (id, action) => {
     try {
       
-      await api.patch(`/api/notes/${action}/${id}`);
+      await API.patch(`/api/notes/${action}/${id}`);
       fetchNotes(); // refresh after approve/reject
     } catch {
       alert(`Failed to ${action}`);

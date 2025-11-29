@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api';
+import API from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function AdminRegister() {
@@ -30,7 +30,7 @@ function AdminRegister() {
     }
 
     try {
-      const res = await api.post('/api/admin/send-otp', form);
+      const res = await API.post('/api/admin/send-otp', form);
       alert(res.data.message);
       setOtpSent(true);
     } catch (err) {
@@ -45,7 +45,7 @@ function AdminRegister() {
     }
 
     try {
-      const res = await api.post('/api/admin/verify-otp', {
+      const res = await API.post('/api/admin/verify-otp', {
         email: form.email,
         otp
       });

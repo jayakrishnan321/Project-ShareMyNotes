@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+import API from '../api';
 
 function AdminReview() {
   const [pendingNotes, setPendingNotes] = useState([]);
 
   const fetchPending = () => {
-    api.get('/api/notes/pending')
+    API.get('/api/notes/pending')
       .then((res) =>{ setPendingNotes(res.data)})
         .catch(() => alert('Error loading pending notes'));
   };
@@ -16,7 +16,7 @@ function AdminReview() {
 
   const handleDecision = async (id, action) => {
     try {
-      await api.patch(`/api/notes/${action}/${id}`);
+      await API.patch(`/api/notes/${action}/${id}`);
       fetchPending();
     } catch {
       alert('Action failed');

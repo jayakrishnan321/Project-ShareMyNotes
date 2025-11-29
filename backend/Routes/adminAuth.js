@@ -76,7 +76,6 @@ router.post('/verify-otp', async (req, res) => {
 // ✅ Route: Admin Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ username: email, role: 'admin' });
   if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 

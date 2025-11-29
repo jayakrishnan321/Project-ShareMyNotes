@@ -1,5 +1,5 @@
 import React from 'react'
-import api from '../api';
+import API from '../api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ function AdminChangepassword() {
   }
 
   try {
-    const res = await api.put(
+    const res = await API.put(
       `/api/admin/change-password/${id}`,
       { oldPassword, newPassword }
     );

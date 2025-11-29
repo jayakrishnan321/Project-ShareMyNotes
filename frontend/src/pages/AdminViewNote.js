@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+import API from '../api';
 
 function ViewNotes() {
   const [notes, setNotes] = useState([]);
@@ -13,7 +13,7 @@ function ViewNotes() {
   
 
   const fetchnotes = () => {
-    api.get('/api/notes/public')
+    API.get('/api/notes/public')
       .then((res) => setNotes(res.data))
       .catch(() => alert('Failed to load notes'));
 
@@ -23,7 +23,7 @@ function ViewNotes() {
     fetchnotes()
   }, []);
   const handledelete = (id) => {
-    api.delete(`/api/notes/${id}`)
+    API.delete(`/api/notes/${id}`)
     alert("note deleted")
     fetchnotes()
 
