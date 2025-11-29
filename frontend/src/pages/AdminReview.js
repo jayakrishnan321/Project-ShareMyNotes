@@ -56,7 +56,8 @@ function AdminReview() {
                       <p className="text-gray-800">{note.uploadedBy}</p>
                     </div>
                     <a 
-                      href={note.fileUrl} 
+                     href={`${process.env.REACT_APP_API_URL}${note.fileUrl}`}
+
                       target="_blank" 
                       rel="noreferrer" 
                       className="inline-block text-blue-600 hover:text-blue-800 font-semibold underline decoration-2 hover:decoration-blue-800 transition-colors"

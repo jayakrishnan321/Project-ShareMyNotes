@@ -23,8 +23,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   const { title, subject, uploadedBy } = req.body;
 
   // Use BASE_URL if present, else fallback to host from request
-  const fileUrl = `${BASE_URL || req.protocol + '://' + req.get('host')}/uploads/${req.file.filename}`;
-  console.log(fileUrl);
+  const fileUrl = `/uploads/${req.file.filename}`;
 
   const note = new Note({
     title,
@@ -58,9 +57,7 @@ router.post('/upload-by-user', upload.single('file'), async (req, res) => {
 
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
 
-  const fileUrl = `${BASE_URL || req.protocol + '://' + req.get('host')}/uploads/${req.file.filename}`;
-  console.log(fileUrl);
-
+  const fileUrl = `/uploads/${req.file.filename}`;
   const note = new Note({
     title,
     subject,

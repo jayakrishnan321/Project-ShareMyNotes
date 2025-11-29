@@ -103,7 +103,8 @@ function ViewNotes() {
                       <td className="p-4 text-gray-700">{note.subject}</td>
                       <td className="p-4 text-center">
                         <a
-                          href={note.fileUrl}
+                          href={`${process.env.REACT_APP_API_URL}${note.fileUrl}`}
+
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-semibold"
