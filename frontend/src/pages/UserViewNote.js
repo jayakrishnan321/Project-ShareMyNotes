@@ -8,6 +8,23 @@ function ViewNotes() {
     search: '',
   });
 
+  // Build file URL using API host from environment instead of whatever host is in note.fileUrl
+  const getFileUrl = (fileUrl) => {
+    if (!fileUrl) return '#';
+
+    const base = process.env.REACT_APP_API_URL || '';
+
+    try {
+      // If fileUrl is an absolute URL (likely with localhost), keep only its path
+      const url = new URL(fileUrl);
+      return `${base.replace(/\/$/, '')}${url.pathname}`;
+    } catch {
+      // If fileUrl is already a relative path
+      const path = fileUrl.startsWith('/') ? fileUrl : `/${fileUrl}`;
+      return `${base.replace(/\/$/, '')}${path}`;
+    }
+  };
+
   const fetchnotes = () => {
     api.get('/notes/public')
       .then((res) => setNotes(res.data))
@@ -93,7 +110,7 @@ function ViewNotes() {
                       <td className="p-4 text-gray-700">{note.subject}</td>
                       <td className="p-4 text-center">
                         <a
-                          href={note.fileUrl}
+                          href={getFileUrl(note.fileUrl)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-semibold"
